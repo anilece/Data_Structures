@@ -59,20 +59,23 @@ class LinkedList:
             return(None)
     
     def insert(self,data,data_before):
-        
-        if self.find_node(data_before)!=None:
-            temp=self.find_node(data_before)
-            temp1=Node(data)
-            if temp.get_next==None:
-                temp.set_next(temp1)
-                temp1.set_next(None)
-            else:
-                d=temp.get_next()
-                temp.set_next(temp1)
-                temp1.set_next(d)
+        new_node=Node(data)
+        if(data_before==None):
+            new_node.set_next(self.__head)
+            self.__head=new_node
+            if(new_node.get_next()==None):
+                self.__tail=new_node
+
         else:
-            print("next_node not found")
-            
+            node_before=self.find_node(data_before)
+            if(node_before is not None):
+                new_node.set_next(node_before.get_next())
+                node_before.set_next(new_node)
+                if(new_node.get_next() is None):
+                    self.__tail=new_node
+            else:
+                print(data_before,"is not present in the Linked list")        
+
     def __str__(self):
         temp=self.__head
         msg=[]
